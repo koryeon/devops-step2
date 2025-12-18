@@ -1,0 +1,63 @@
+name: Spring boot docker images CI/CD
+
+
+on:
+  push:
+    branches: [main]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+     # 소스 복사 
+     # - name: 
+     #   run: git clone https://github.com/masungil70/kosa-devops-step1
+     # 위의 주석들을 실행해주는 라이브러리 
+       - uses: actions/checkout@v3
+
+       - name: Setup JDK17 
+         uses: actions/setup-java@v3 # java에 대한 버전을 설정할 수 있음
+         with:
+           java-version: '17'
+           distribution: 'termurin'
+       - name: gradlew 파일 실행 권한 설정
+         run: chmod +x gradlew
+         
+       - name: Tset with gradle
+         run: ./gradlew --info --test
+
+       - name: Spring boot 실행 파일 생성
+         run: ./gradlew bootjar
+
+       - name: docker iamge 생성
+         run: docker build -t kimhyoyeon/devops-step2:v1.0
+
+       - name: docker login
+         uses: docker/login-action@v1
+         with:
+           username: kimhyoyeon
+           password: ${{secrets.DOCKER_PASSWORD}}
+
+
+       - name: docker image 허브에 저장
+         run: docker push kimhyoyeon/devops-step2:v2.0
+
+
+
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: self-hosted
+    steps:
+     - name: docker login
+       uses: docker/login-action@v1
+       with:
+         username: kimhyoyeon
+         password: ${{secrets.DOCKER_PASSWORD}}
+
+
+     - name: docker image pull
+       run: docker image pull kimhyoyeon/devops-step:v2.0
+  
