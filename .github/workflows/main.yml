@@ -26,7 +26,7 @@ jobs:
          run: chmod +x gradlew
          
        - name: Tset with gradle
-         run: ./gradlew --info --task
+         run: ./gradlew task --info 
 
        - name: Spring boot 실행 파일 생성
          run: ./gradlew bootjar
