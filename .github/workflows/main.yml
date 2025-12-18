@@ -64,4 +64,10 @@ jobs:
 
      - name: docker image pull
        run: docker image pull ${{env.DOCKER_USERNAME}}/devops-step2:v1.0
+
+     - name: docker compose 실행하기 위한 경로 이동 
+       run: cd /home/kosa/devops-step2 # 이 경로에 해당 파일이 없기 때문에 경로를 바꿔줘야함
+
+     - name: docker compose 실행 
+       run: docker compose -f pull docker-compose_nginx.yml up 
   
