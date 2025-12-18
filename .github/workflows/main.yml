@@ -63,5 +63,5 @@ jobs:
 
 
      - name: docker image pull
-       run: docker image pull ${{env.DOCKER_USERNAME}}/devops-step:v2.0 .
+       run: docker image pull ${{env.DOCKER_USERNAME}}/devops-step:v1.0 .
   
