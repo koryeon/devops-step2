@@ -5,7 +5,11 @@ on:
   push:
     branches: [main]
 
+env:
+  DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
 
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,17 +36,17 @@ jobs:
          run: ./gradlew bootjar
 
        - name: docker iamge 생성
-         run: docker build -t kimhyoyeon/devops-step2:v1.0 .
+         run: docker build -t ${{env.DOCKER_USERNAME}}/devops-step2:v1.0 .
 
        - name: docker login
          uses: docker/login-action@v1
          with:
-           username: kimhyoyeon
-           password: ${{secrets.DOCKER_PASSWORD}}
+           username: ${{env.DOCKER_USERNAME}}
+           password: ${{env.DOCKER_PASSWORD}}
 
 
        - name: docker image 허브에 저장
-         run: docker push kimhyoyeon/devops-step2:v2.0
+         run: docker push ${{env.DOCKER_USERNAME}}/devops-step2:v2.0
 
 
 
@@ -54,10 +58,10 @@ jobs:
      - name: docker login
        uses: docker/login-action@v1
        with:
-         username: kimhyoyeon
+         username: ${{env.DOCKER_USERNAME}}
          password: ${{secrets.DOCKER_PASSWORD}}
 
 
      - name: docker image pull
-       run: docker image pull kimhyoyeon/devops-step:v2.0
+       run: docker image pull ${{env.DOCKER_USERNAME}}/devops-step:v2.0
   
