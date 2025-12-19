@@ -71,7 +71,7 @@ jobs:
         run: cd /home/kosa/devops-step2 # 이 경로에 해당 파일이 없기 때문에 경로를 바꿔줘야함
 
       - name: docker compose 실행 
-        run: docker compose -f pull docker-compose_nginx.yml up 
+        run: docker compose -f docker-compose_nginx.yml up -d
   
 
       - name: docker login
