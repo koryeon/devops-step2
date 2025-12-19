@@ -12,7 +12,8 @@ env:
   
 jobs:
   build:
-    runs-on: ubuntu-latest
+ #   runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
      # 소스 복사 
@@ -23,12 +24,12 @@ jobs:
 
 
 
-      # - name: 폴더정리
-       #  run: rm -rf devops-step2
+       - name: 폴더정리
+         run: rm -rf devops-step2
 
 
        - name: 소스 복사
-         run: git clone https:/github.com/koryeon/devops-step2
+         run: git clone https://github.com/koryeon/devops-step2
 
      #  - name: Setup JDK17 
       
@@ -36,17 +37,29 @@ jobs:
        #  with:
         #   java-version: '17'
          #  distribution: 'temurin'
+
+       - name: 경로 변경
+         run: 
        - name: gradlew 파일 실행 권한 설정
-         run: chmod +x ./devops-step2/gradlew
+         run: |
+           cd devops-step2 
+           chmod +x ./gradlew
          
        - name: Tset with gradle
-         run: ./devops-step2/gradlew task --info 
+        
+         run: |
+           cd devops-step2
+           ./gradlew task --info 
 
        - name: Spring boot 실행 파일 생성
-         run: ./devops-step2/gradlew bootjar
+         run: |
+           cd devops-step2
+           ./gradlew bootjar
 
        - name: docker iamge 생성
-         run: docker build -t ${{env.DOCKER_USERNAME}}/devops-step2:latest .
+         run: |
+           cd devops-step2
+           docker build -t ${{env.DOCKER_USERNAME}}/devops-step2:latest .
 
        - name: docker login
          uses: docker/login-action@v1
