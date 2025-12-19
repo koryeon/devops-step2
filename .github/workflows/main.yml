@@ -28,7 +28,7 @@ jobs:
 
 
        - name: 소스 복사
-         run: git clone https:/github.com/kimhyoyeon/devops-step2
+         run: git clone https:/github.com/koryeon/devops-step2
 
      #  - name: Setup JDK17 
       
