@@ -82,7 +82,7 @@ jobs:
           password: ${{env.DOCKER_PASSWORD}}
 
       - name: pull docker image
-        run: docker pull ${{env.DOCKER_USERNAME}}/devops_step2:latest
+        run: docker pull ${{env.DOCKER_USERNAME}}/devops-step2:latest
 
       - name: run docker container
         run: docker compose -f docker-compose_nginx.yml up -d
