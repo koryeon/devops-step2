@@ -133,6 +133,6 @@ jobs:
       - name: 운영서버로 파일 복사
         run: |
           cd devops-step2
-          scp docker-compose_nginx.yml aws-master:~/docker-compose_nginx.yml
+          scp ./docker-compose_nginx.yml aws-master:~/docker-compose_nginx.yml
           scp -r nginx/nginx.conf aws-master
           ssh aws-master ./run.sh > /dev/null
