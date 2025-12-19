@@ -19,7 +19,16 @@ jobs:
      # - name: 
      #   run: git clone https://github.com/masungil70/kosa-devops-step1
      # 위의 주석들을 실행해주는 라이브러리 
-       - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3.  -> 여기가 오류나던데 나는 오류발생x 왜?
+
+
+
+      # - name: 폴더정리
+       #  run: rm -rf devops-step2
+
+
+       - name: 소스 복사
+         run: git clone https:/github.com/kimhyoyeon/devops-step2
 
      #  - name: Setup JDK17 
       
@@ -28,13 +37,13 @@ jobs:
         #   java-version: '17'
          #  distribution: 'temurin'
        - name: gradlew 파일 실행 권한 설정
-         run: chmod +x gradlew
+         run: chmod +x ./devops-step2/gradlew
          
        - name: Tset with gradle
-         run: ./gradlew task --info 
+         run: ./devops-step2/gradlew task --info 
 
        - name: Spring boot 실행 파일 생성
-         run: ./gradlew bootjar
+         run: ./devops-step2/gradlew bootjar
 
        - name: docker iamge 생성
          run: docker build -t ${{env.DOCKER_USERNAME}}/devops-step2:latest .
@@ -54,8 +63,8 @@ jobs:
          with:
             name: my-artifact
             path: |
-               docker-compose_nginx.yml
-               nginx/nginx.conf
+               devops-step2/docker-compose_nginx.yml
+               devops-step2/nginx/nginx.conf
                
 
 
