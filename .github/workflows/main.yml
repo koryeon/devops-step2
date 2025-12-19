@@ -121,11 +121,18 @@ jobs:
           username: ${{env.DOCKER_USERNAME}}
           password: ${{env.DOCKER_PASSWORD}}
 
-      - name: pull docker image
-        run: docker pull ${{env.DOCKER_USERNAME}}/devops-step2:latest
+     # - name: pull docker image
+      #  run: docker pull ${{env.DOCKER_USERNAME}}/devops-step2:latest
 
-      - name: run docker container
-        run: docker compose -f docker-compose_nginx.yml up -d
+      #- name: run docker container
+       # run: docker compose -f docker-compose_nginx.yml up -d
       
-      - name: cleanup old images
-        run: docker image prune -f
+    #  - name: cleanup old images
+     #   run: docker image prune -f
+
+      - name: 운영서버로 파일 복사
+        run: |
+          cd devops-step2
+          scp docker-compose_nginx.yml aws-master:~/docker-compose_nginx.yml
+          scp -r nginx/nginx.conf aws-master
+          ssh aws-master ./run.sh > /dev/null
