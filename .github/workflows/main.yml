@@ -86,7 +86,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: my-artifact
-          path: ./docker-compose_nginx.yml
+
 
       - name: docker login
         #run: docker login -u hyunhojang -p${{secrets.DOCKER_PASSWORD}}
