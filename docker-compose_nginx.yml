@@ -15,12 +15,12 @@ services:
       - my_bridge_network
 
   app1:
-    image: kimhyoyeon/devops_step2
+    image: kimhyoyeon/devops-step2
     networks:
       - my_bridge_network
 
   app2:
-    image: kimhyoyeon/devops_step2
+    image: kimhyoyeon/devops-step2
     networks:
       - my_bridge_network
 
