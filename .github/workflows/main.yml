@@ -130,7 +130,7 @@ jobs:
     #  - name: cleanup old images
      #   run: docker image prune -f
 
-      - name: 운영서버로 파일 복사
+      - name: 운영서버로 파일 복사99
         run: |
           cd devops-step2
           scp ./docker-compose_nginx.yml aws-master:~/docker-compose_nginx.yml
